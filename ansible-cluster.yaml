@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ansible
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: master
+  namespace: ansible
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: master
+  template:
+    metadata:
+      labels:
+        app: master
+    spec:
+      containers:
+      - name: master
+        image: bhushanyadav/ansible-node:latest
+        ports:
+        - containerPort: 22
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node1
+  namespace: ansible
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node1
+  template:
+    metadata:
+      labels:
+        app: node1
+    spec:
+      containers:
+      - name: node1
+        image: bhushanyadav/ansible-node:latest
+        ports:
+        - containerPort: 22
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node2
+  namespace: ansible
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node2
+  template:
+    metadata:
+      labels:
+        app: node2
+    spec:
+      containers:
+      - name: node2
+        image: bhushanyadav/ansible-node:latest
+        ports:
+        - containerPort: 22
+

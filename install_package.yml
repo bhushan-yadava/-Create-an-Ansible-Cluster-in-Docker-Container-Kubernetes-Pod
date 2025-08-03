@@ -1,0 +1,17 @@
+---
+- name: Install curl package on all nodes
+  hosts: nodes
+  become: yes
+  tasks:
+    - name: Install curl on Debian/Ubuntu
+      apt:
+        name: curl
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Install curl on RedHat/CentOS
+      yum:
+        name: curl
+        state: present
+      when: ansible_os_family == "RedHat"
