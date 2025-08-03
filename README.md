@@ -23,3 +23,17 @@ This project demonstrates how to manually set up an Ansible cluster with a maste
 
    ```bash
    kubectl apply -f ansible-cluster.yaml
+   
+2. Copy inventory and playbook files from the master pod:
+   ```bash
+   kubectl cp ansible/master-<pod_id>:/home/ansible/inventory ./inventory
+   
+   kubectl cp ansible/master-<pod_id>:/home/ansible/install_package.yml ./install_package.yml
+   
+3. Run Ansible commands from the master or your local machine:
+   ```bash
+   ansible -i inventory nodes -m ping
+   
+   ansible-playbook -i inventory install_package.yml
+
+   
